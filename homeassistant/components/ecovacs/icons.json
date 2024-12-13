@@ -109,6 +109,9 @@
       },
       "work_mode": {
         "default": "mdi:cog"
+      },
+      "mop_auto_wash_frequency": {
+        "default": "mdi:timer-outline"
       }
     },
     "switch": {

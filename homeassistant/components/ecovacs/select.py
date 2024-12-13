@@ -6,7 +6,11 @@ from typing import Any, Generic
 
 from deebot_client.capabilities import CapabilitySetTypes
 from deebot_client.device import Device
-from deebot_client.events import WaterInfoEvent, WorkModeEvent
+from deebot_client.events import (
+    MopAutoWashFrequencyEvent,
+    WaterInfoEvent,
+    WorkModeEvent,
+)
 
 from homeassistant.components.select import SelectEntity, SelectEntityDescription
 from homeassistant.const import EntityCategory
@@ -45,6 +49,15 @@ ENTITY_DESCRIPTIONS: tuple[EcovacsSelectEntityDescription, ...] = (
         options_fn=lambda cap: [get_name_key(mode) for mode in cap.types],
         key="work_mode",
         translation_key="work_mode",
+        entity_registry_enabled_default=False,
+        entity_category=EntityCategory.CONFIG,
+    ),
+    EcovacsSelectEntityDescription[MopAutoWashFrequencyEvent](
+        capability_fn=lambda caps: caps.settings.mop_auto_wash_frequency,
+        current_option_fn=lambda e: get_name_key(e.interval),
+        options_fn=lambda cap: [get_name_key(interval) for interval in cap.types],
+        key="mop_auto_wash_frequency",
+        translation_key="mop_auto_wash_frequency",
         entity_registry_enabled_default=False,
         entity_category=EntityCategory.CONFIG,
     ),
